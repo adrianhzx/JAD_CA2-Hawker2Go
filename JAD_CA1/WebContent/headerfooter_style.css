@@ -1,0 +1,120 @@
+@charset "ISO-8859-1";
+
+/* Import Fonts */
+@import url(//fonts.googleapis.com/css?family=Arsenal);
+@import url(//fonts.googleapis.com/css?family=Lato);
+
+@font-face {
+	font-family: "Rosario";
+	src: url("fonts/Rosario-Regular.ttf");
+}
+
+/* Header CSS */
+header {
+	font-family: Lato;
+	height: 65px;
+	background-color: #ebebeb;
+}
+
+header img, footer img {
+	max-height: 80%;
+	object-fit: contain;
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+#head-link-container {
+	float: right;
+	display: flex;
+	align-items: center;
+	margin-top: revert;
+}
+
+#head-link-container li {
+	display: inline-block;
+	margin-right: 40px;
+}
+
+.head-link {
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.head-link:hover {
+	color: #e90c70;
+}
+
+/* Login */
+#login {
+	color: #e90c70;
+	border: 1px #e90c70 solid;
+	padding: 8px 12px;
+}
+
+#login:hover {
+	color: white;
+	background-color: #e90c70;
+}
+
+/* Shopping Cart */
+#shopping-cart {
+	color: #b6b6b6;
+	font-size: 24px;
+}
+
+#shopping-cart:hover {
+	color: #e90c70;
+}
+
+/* Dropdown */
+li .dropdown {
+	position: relative;
+	display: inline-block;
+	height: 100%;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #d4d4d4;
+	min-width: 100px;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+/* Product */
+
+.Product-Category-name {
+	font-family: "Rosario";
+	font-size: 22;
+	color: #BC002D; 
+}
+
+.Product-Location-name {
+	font-family: "Rosario";
+	font-size: 20;
+	color: #BDBDBD; 
+}
+
+.Product-name {
+	font-family: Arsenal;
+	font-size: 30;
+	color: #000000; 
+}
+
+/* cart.jsp */
+
+.cart-h2{
+	font-family: Arsenal;
+	font-size: 42;
+	color: #BC002D; 
+}
+
+.stallname{
+	font-family: Arsenal;
+	font-size: 36;
+	color: #BC002D; 
+}

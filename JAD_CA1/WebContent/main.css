@@ -1,0 +1,176 @@
+@charset "ISO-8859-1";
+
+/* Import Fonts */
+@import url(//fonts.googleapis.com/css2?family=Arsenal:wght@700&display=swap);
+@import url(//fonts.googleapis.com/css?family=Lato);
+
+body {
+	font-family: Lato;
+	margin: 0px;
+}
+
+/* Background Images */
+#bg-image-index {
+	background-image: url('images/hawkercenter.png');
+	background-position: 80% 70%;
+	background-color: #272c45;
+	height: 310px;
+}
+
+#bg-image-login {
+	background: url('images/bg_login_chicken_rice.png');
+	background-size: cover;
+	background-position: 50% 50%;
+	background-color: #272c45;
+	height: 310px;
+}
+
+h1, h2 {
+	font-family: "Arsenal";
+	color: #bb0959;
+}
+
+/* Section */
+.centered {
+	margin: auto;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.width-50 {
+	width: 50%;
+}
+
+.width-75 {
+	width: 75%;
+}
+
+/* Table */
+.centered #category-table {
+	width: 100%;
+	table-layout: fixed;
+}
+
+/* Horizontal Line */
+.divider {
+	display: flex;
+	flex-direction: row;
+	padding: 10px;
+	color: gray;
+}
+
+.divider:before, .divider:after {
+	content: "";
+	flex: 1 1;
+	border-bottom: 0.5px solid black;
+	padding: 1px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+/* Category Image -- index.jsp */
+td .category-image {
+	width: 80%;
+	height: 200px;
+	object-fit: cover;
+	border-radius: 4px;
+	filter: contrast(75%) brightness(75%) saturate(1);
+}
+
+td .category-image:hover {
+	filter: saturate(2);
+}
+
+/* Category Title -- index.jsp */
+#category-table td {
+	position: relative;
+}
+
+.category-title {
+	position: absolute;
+	left: 59%;
+	top: 55%;
+	text-align: right;
+	z-index: 1;
+	color: white;
+}
+
+/* Form Properties */
+.input-icons i {
+	position: absolute;
+	font-size: 20px;
+}
+
+.icon {
+	padding: 8px;
+	min-width: 20px;
+}
+
+.input-styling {
+	padding: 8px 30px 8px;
+	font-family: Lato;
+	margin-right: 12px;
+}
+
+.bottom-border {
+	border: none;
+	border-bottom: 1px solid black;
+}
+
+.input-styling[type="submit"] {
+	background-color: #7407f8;
+	border: none;
+	font-family: Lato;
+	font-weight: bold;
+	color: white;
+}
+
+.input-styling[type="submit"]:disabled {
+	background-color: gray;
+}
+
+/* Login Container */
+#login-container {
+	display: flex;
+	flex-direction: row;
+	margin-top: 45px;
+	margin-bottom: 45px;
+}
+
+#login-container section {
+	flex: 2;
+}
+
+.vl {
+	border-left: 1px solid gray;
+	height: 400px;
+}
+
+/* Error Message */
+.error-message {
+	margin-top: 20px;
+	padding: 10px 30px;
+	border: 1px solid red;
+	border-radius: 3px;
+	background-color: #fdd0d7;
+	color: red;
+
+}
+
+/* cart.jsp */
+
+/* productAdmin.jsp */
+.clickable-row:hover {
+	background-color: #cfeffe;
+	cursor: context-menu;
+}
+
+.clickable-row .fa-trash:hover {
+	color: red;
+}
+
+.clickable-row .fa-pencil:hover {
+	color: blue;
+}
