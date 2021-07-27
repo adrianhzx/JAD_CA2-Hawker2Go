@@ -48,12 +48,8 @@
 			ArrayList catResult = (ArrayList) request.getAttribute("getallCat");
 		%>
 		<%
-			ArrayList productResult = (ArrayList) request.getAttribute("getallProducts");
-		%>
-		<%
 			
 			ArrayList getsearchandidResult = (ArrayList) request.getAttribute("Findallwithsearchandcatid");
-			String changename = "";
 		%>
 
 		<!-- productlist-processing.jsp -->
@@ -83,7 +79,6 @@
 							<%
 								}
 							%>
-							<label><input type='radio'> Search All</label>
 						</ul>
 					</div>
 				</div>
@@ -103,8 +98,8 @@
 	<div class="container-xl">
 		<div class="row p-4">
 			<%
-				for (int productCounter = 0; productCounter < productResult.size(); productCounter++) {
-				FindProduct uBean = (FindProduct) productResult.get(productCounter);
+				for (int productCounter = 0; productCounter < getsearchandidResult.size(); productCounter++) {
+				FindProduct uBean = (FindProduct) getsearchandidResult.get(productCounter);
 				if (getUserSessionName != null) {
 			%>
 			<div class='col-md-4'>

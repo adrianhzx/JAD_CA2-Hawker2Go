@@ -105,7 +105,7 @@ public class deductionofStocks extends HttpServlet {
 			
 			out.println("<script type=\"text/javascript\">");
 			out.println("alert('Your order has been placed!')");
-			out.println("location='productlist.jsp';");
+			out.println("location='index.jsp';");
 			out.println("</script>");
 			
 			//response.sendRedirect("productlist.jsp");

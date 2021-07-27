@@ -24,7 +24,7 @@
 		<img src="images/logo.png" alt="logo" />
 	</a>
 	<ul id="head-link-container">
-		<li><a href="productlist.jsp" class="head-link">Products</a></li>
+		<li><a href="Product" class="head-link">Products</a></li>
 		<li><a href="#" class="head-link">About</a></li>
 		
 		<% if (isAdministrator) { %>
@@ -58,12 +58,12 @@
 			<%} %>
 			<% if((Integer)sess.getAttribute("countering") != null){%>
 				<script type="text/javascript">
-				window.onload = function() {
-					if(!window.location.hash) {
-						window.location = window.location + '#';
-						window.location.reload();
-					}
-				}
+				//window.onload = function() {
+				//	if(!window.location.hash) {
+				//		window.location = window.location + '#';
+				//		window.location.reload();
+				//	}
+				//}
 				</script>
 				<%out.print((Integer)sess.getAttribute("countering"));%>
 				<%-- <%out.print((Integer)sess.getAttribute("countering"));%> --%>
