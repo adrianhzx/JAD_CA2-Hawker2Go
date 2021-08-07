@@ -32,7 +32,9 @@
 	<ul id="head-link-container">
 		<li><a href="Product" class="head-link">Products</a></li>
 		<li><a href="#" class="head-link">About</a></li>
-		
+		<% if (firstName != null && lastName != null) {%>
+		<li><a href="OrderHistoryKey" class="head-link">Order History</a></li>
+		<%} %>
 		<% if (isAdministrator) { %>
 		<li>
 			<a href="admin.jsp" class="head-link">Admin Options</a>

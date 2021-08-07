@@ -17,6 +17,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Servlet implementation class deductionofStocks
@@ -53,6 +54,10 @@ public class deductionofStocks extends HttpServlet {
 		
 		String getAddress = request.getParameter("HomeAddress");
 		
+		// we need an orderkey
+		String key = UUID.randomUUID().toString();
+		
+		
 		System.out.print("get address " + getAddress);
 		boolean found = false;
 		String orderPass = "";
@@ -82,7 +87,7 @@ public class deductionofStocks extends HttpServlet {
 			
 			PreparedStatement psUpdate = conn.prepareStatement(sqlStr);
 			
-			String sqlStr2 = "Insert into orders(fk_userID, storeID, productID,quantity, address, ordertime) values (?, ?, ?, ?,?, now())";
+			String sqlStr2 = "Insert into orders(fk_userID, storeID, productID,quantity, address,orderkey, ordertime) values (?, ?, ?, ?,?,?, now())";
 			
 			PreparedStatement psInsert = conn.prepareStatement(sqlStr2);
 			
@@ -97,6 +102,7 @@ public class deductionofStocks extends HttpServlet {
 				psInsert.setInt(3, item.getId());
 				psInsert.setInt(4, item.getQuantity());
 				psInsert.setString(5, getAddress);
+				psInsert.setString(6, key);
 				psInsert.executeUpdate();
 				
 				found = true;

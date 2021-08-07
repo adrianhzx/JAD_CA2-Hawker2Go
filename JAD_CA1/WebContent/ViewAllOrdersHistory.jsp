@@ -33,36 +33,26 @@
 </head>
 
 <body>
-	<%
-		ArrayList orderResult = (ArrayList) request.getAttribute("getOrderResult");
-	//System.out.print(orderResult);
-	if (orderResult.isEmpty()) {
-		//System.out.print("WHAT ARE U DOING HERE!!");
-		out.println("<script type=\"text/javascript\">");
-		out.println("alert('Your order has arrived!')");
-		out.println("location='index.jsp';");
-		out.println("</script>");
-		//request.getRequestDispatcher("index.jsp").forward(request, response);
-	}
-	%>
+<%
+	ArrayList orderHistoryResult = (ArrayList) request.getAttribute("getOrderHistoryResult");
+%>
+	
+		
 	<%@include file="header.jsp"%>
 
 	<div class="container">
-		<div>
-			<h1>Your orders has been placed!</h1>
-		</div>
-
-		<%
-			for (int orderCounter = 0; orderCounter < orderResult.size(); orderCounter++) {
-			OrderFinish uBean = (OrderFinish) orderResult.get(orderCounter);
+		<h1>Your Orders</h1>
+	<%
+		for (int orderCounter = 0; orderCounter < orderHistoryResult.size(); orderCounter++) {
+			OrderHistory uBean = (OrderHistory) orderHistoryResult.get(orderCounter);
 		%>
 		<div class='row'>
 
 			<div class='col'>
 
-				<h3 class='pt-2 pb-1 stallname important-heading'><%=uBean.getStallname()%></h3>
+				<h3 class='pt-2 pb-1 stallname important-heading'><%=uBean.getStallName()%></h3>
 				<p class='float-right'>
-					<%-- <strong><%=uBean.getPrice()%></strong> --%>
+					<strong><%=uBean.getPrice()%></strong>
 				</p>
 				<p class="pl-2">
 					<strong><%=uBean.getQuantity()%>X</strong> &nbsp;
@@ -72,26 +62,11 @@
 
 
 		</div>
-		<%
-			}
-		%>
-		<div id="countdown"></div>
+		<%} %>
+		
 	</div>
 
 	<%@include file="footer.html"%>
-	<script type="text/javascript">
-		var timeleft = 60;
-		var downloadTimer = setInterval(function() {
-			if (timeleft <= 0) {
-				clearInterval(downloadTimer);
-				document.getElementById("countdown").innerHTML = "Finished";
-				location.reload();
-			} else {
-				document.getElementById("countdown").innerHTML = timeleft
-						+ " seconds remaining";
-			}
-			timeleft -= 1;
-		}, 1000);
-	</script>
+	
 </body>
 </html>

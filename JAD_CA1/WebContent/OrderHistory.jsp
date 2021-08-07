@@ -33,65 +33,40 @@
 </head>
 
 <body>
-	<%
-		ArrayList orderResult = (ArrayList) request.getAttribute("getOrderResult");
-	//System.out.print(orderResult);
-	if (orderResult.isEmpty()) {
-		//System.out.print("WHAT ARE U DOING HERE!!");
-		out.println("<script type=\"text/javascript\">");
-		out.println("alert('Your order has arrived!')");
-		out.println("location='index.jsp';");
-		out.println("</script>");
-		//request.getRequestDispatcher("index.jsp").forward(request, response);
-	}
-	%>
+<%
+	ArrayList orderHistoryKeyResult = (ArrayList) request.getAttribute("getOrderHistoryKeyResult");
+%>
+	
+	
+		
+		
 	<%@include file="header.jsp"%>
 
 	<div class="container">
-		<div>
-			<h1>Your orders has been placed!</h1>
-		</div>
-
-		<%
-			for (int orderCounter = 0; orderCounter < orderResult.size(); orderCounter++) {
-			OrderFinish uBean = (OrderFinish) orderResult.get(orderCounter);
+		<h1>Order History</h1>
+	<%
+		for (int orderCounter = 0; orderCounter < orderHistoryKeyResult.size(); orderCounter++) {
+			OrderHistoryKey uBean = (OrderHistoryKey) orderHistoryKeyResult.get(orderCounter);
 		%>
-		<div class='row'>
-
-			<div class='col'>
-
-				<h3 class='pt-2 pb-1 stallname important-heading'><%=uBean.getStallname()%></h3>
-				<p class='float-right'>
-					<%-- <strong><%=uBean.getPrice()%></strong> --%>
-				</p>
-				<p class="pl-2">
-					<strong><%=uBean.getQuantity()%>X</strong> &nbsp;
-					<%=uBean.getProductName()%></p>
-			</div>
-
-
-
+		<div class="border border-primary">
+			<p>Receipt: <%=uBean.getOrderkey() %></p>
+			<p>Date: <%=uBean.getDate() %></p>
+			<p>Time: <%=uBean.getTime() %></p>
+		
+			<form action="OrderHistory" method="get" >
+				<input type="hidden" value="<%=uBean.getOrderkey() %>" name="getKey"/>
+				<button type="submit">View More</button>
+	
+			</form>
+			
 		</div>
-		<%
-			}
-		%>
-		<div id="countdown"></div>
+		<%} %>
+		<!-- <div>
+			<h1>Curry Rice</h1>
+		</div> -->
 	</div>
 
 	<%@include file="footer.html"%>
-	<script type="text/javascript">
-		var timeleft = 60;
-		var downloadTimer = setInterval(function() {
-			if (timeleft <= 0) {
-				clearInterval(downloadTimer);
-				document.getElementById("countdown").innerHTML = "Finished";
-				location.reload();
-			} else {
-				document.getElementById("countdown").innerHTML = timeleft
-						+ " seconds remaining";
-			}
-			timeleft -= 1;
-		}, 1000);
-	</script>
+	
 </body>
 </html>
