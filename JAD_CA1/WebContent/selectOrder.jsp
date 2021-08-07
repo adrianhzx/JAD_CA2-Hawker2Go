@@ -44,6 +44,13 @@
 	<body>
 		<%@include file="header.jsp"%>
 		<%	
+				//String getUserId = "";
+				Integer getUserId = (Integer) session.getAttribute("id");
+				
+			
+					//out.print("how u get here?????" + getUserId);
+				
+				
 				ArrayList<CartItem> cartlist = new ArrayList<CartItem>();
 				
 				if (sess.getAttribute("cart") != null) {
@@ -171,6 +178,7 @@
 									<input type='hidden' name='productName' value="<%=product_name%>" />
 									<input type='hidden' name='retailPrice' value="<%=retail_price%>" />
 									<input type='hidden' name='productID' value="<%=product_id%>" />
+									<input type='hidden' name='UserID' value="<%=getUserId%>" />
 		
 									<button type="submit" name="btnAction" value="+" style="visibility: hidden">
 										<i class="fa fa-plus" style="visibility: visible"></i>
@@ -182,6 +190,7 @@
 										} else {
 											for (int i = 0; i < cartlist.size(); i++) {
 												CartItem item = cartlist.get(i);
+												System.out.print("How did he get the id " + item.getId());
 												if (product_id == item.getId()) { 
 													out.println("<input type='number' name='counter' value='"+item.findQuantity(product_id)+"' class='borderless-input' readonly> ");
 										 			break;

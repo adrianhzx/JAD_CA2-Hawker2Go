@@ -66,12 +66,13 @@ public class AddToCart extends HttpServlet {
 		String productName = request.getParameter("productName");
 		double retailPrice = Double.parseDouble(request.getParameter("retailPrice"));
 		String stallName = request.getParameter("stallName");
+		int UserId = Integer.parseInt(request.getParameter("UserID"));
 		
 		//	Perform adding or removal of items based on action
 		if (action.equals("+")) {
 			if (cart.isEmpty()) {
 				System.out.println("CART SIZE IS ZERO");
-				cart.add(new CartItem(productid, stallName, productName, retailPrice));
+				cart.add(new CartItem(productid, stallName, productName, retailPrice, Integer.parseInt(storeid),UserId ));
 			} else {
 				for (int i = 0; i < cart.size(); i++) {
 					CartItem itemToCheck = cart.get(i);
@@ -88,7 +89,7 @@ public class AddToCart extends HttpServlet {
 						//	PRINT FOR DEBUGGING PURPOSES
 						//	-----------------------------
 						System.out.println("New item" + productName + "added to cart");
-						cart.add(new CartItem(productid, stallName, productName, retailPrice));
+						cart.add(new CartItem(productid, stallName, productName, retailPrice, Integer.parseInt(storeid), UserId));
 						break;
 					}
 				}

@@ -51,8 +51,19 @@ public class deductionofStocks extends HttpServlet {
 			cart = (ArrayList<CartItem>) session.getAttribute("cart");
 		}
 		
+		String getAddress = request.getParameter("HomeAddress");
+		
+		System.out.print("get address " + getAddress);
 		boolean found = false;
 		String orderPass = "";
+		
+		for (CartItem item : cart) {
+			
+			System.out.println("Check Quantity " + item.getQuantity());
+			System.out.println("Check ProductID " + item.getId());
+			System.out.println("Check StoreId " + item.getStoreId());
+			System.out.println("Check UserID " + item.getUserId());
+		}
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -71,12 +82,25 @@ public class deductionofStocks extends HttpServlet {
 			
 			PreparedStatement psUpdate = conn.prepareStatement(sqlStr);
 			
+			String sqlStr2 = "Insert into orders(fk_userID, storeID, productID,quantity, address, ordertime) values (?, ?, ?, ?,?, now())";
+			
+			PreparedStatement psInsert = conn.prepareStatement(sqlStr2);
+			
 			for (CartItem item : cart) {
 				psUpdate.setInt(1, item.getQuantity());
 				psUpdate.setInt(2, item.getQuantity());
 				psUpdate.setInt(3, item.getId());
 				psUpdate.executeUpdate();
+				
+				psInsert.setInt(1, item.getUserId());
+				psInsert.setInt(2, item.getStoreId());
+				psInsert.setInt(3, item.getId());
+				psInsert.setInt(4, item.getQuantity());
+				psInsert.setString(5, getAddress);
+				psInsert.executeUpdate();
+				
 				found = true;
+						
 			}
 			
 			/*
@@ -93,10 +117,12 @@ public class deductionofStocks extends HttpServlet {
 		}
 		
 		//	Clear cart
+		
 		cart.clear();
 		session.removeAttribute("cart");
 		
 		if(found == true) {
+			// ================ TO TRANSACTION PAGE HERE!!!! ======================
 			//orderPass = "Passed";
 			//session.setAttribute("orderPass", orderPass);
 		
@@ -105,7 +131,7 @@ public class deductionofStocks extends HttpServlet {
 			
 			out.println("<script type=\"text/javascript\">");
 			out.println("alert('Your order has been placed!')");
-			out.println("location='index.jsp';");
+			out.println("location='OrderResult';");
 			out.println("</script>");
 			
 			//response.sendRedirect("productlist.jsp");
