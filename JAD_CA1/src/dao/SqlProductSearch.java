@@ -84,39 +84,29 @@ public class SqlProductSearch {
 				//System.out.print("TEST!");
 				return list_of_Product;	
 	}
-	public ArrayList<FindProduct> getListofProductWithName(String SearchofName, String Catvalue, String indexName, String indexCatName){
+	public ArrayList<FindProduct> getListofProductWithName(String SearchofName, int Catvalue){
 		
 		ArrayList<FindProduct> List_of_NameandcatProduct = new ArrayList<FindProduct>();
 		
 		Connection conn = null;
 		
 		String getNameCategory = "";
-		if(indexCatName != null){
-			getNameCategory = " and c.CategoryName='" + indexCatName + "' ";
+		if(Catvalue > 0){
+			getNameCategory = " and c.CusineCatID=" + Catvalue;
 		}else{
 			getNameCategory = "";
 		}
 		
+		System.out.print("getNameCategory : "+getNameCategory);
+		
 		String getNameSearch = "";
-		if(indexName != null){
-			getNameSearch = " and s.stallName like '"+indexName+"%' " ;
+		if(SearchofName != null){
+			getNameSearch = " and s.stallName like '%"+SearchofName+"%' " ;
 		}else{
 			getNameSearch = "";
 		}
 		
-		String FindWithSearch;
-		if (SearchofName != null) {
-			FindWithSearch = " and s.stallName like '" + SearchofName + "%' ";
-		} else {
-			FindWithSearch = "";
-		}
-
-		String FindWithCategoryID;
-		if (Catvalue != null) {
-			FindWithCategoryID = " and s.CuisineCatID='" + Catvalue + "' ";
-		} else {
-			FindWithCategoryID = "";
-		}
+		System.out.print("getNameSearch : "+getNameSearch);
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -124,25 +114,18 @@ public class SqlProductSearch {
 			conn = DriverManager.getConnection(connURL);
 			Statement stmt = conn.createStatement();
 			//String sqlStr = "select c.CategoryName, s.StallLocation, s.StallName, s.ImageLocation, s.StoreID from stall as s, category as c where s.CuisineCatID = c.CusineCatID "+FindWithSearch+" "+FindWithCategoryID+" order by stallName";
-			String sqlStr = "";
-			if(indexCatName != null){
-				sqlStr = "select c.CategoryName, s.StallLocation, s.StallName, s.ImageLocation, s.StoreID from stall as s, category as c where s.CuisineCatID = c.CusineCatID "+getNameCategory+" order by stallName";
-			}else if (indexName != null){
-				sqlStr = "select c.CategoryName, s.StallLocation, s.StallName, s.ImageLocation, s.StoreID from stall as s, category as c where s.CuisineCatID = c.CusineCatID "+getNameSearch+" order by stallName";
-			}
-			else{
-			sqlStr = "select c.CategoryName, s.StallLocation, s.StallName, s.ImageLocation, s.StoreID from stall as s, category as c where s.CuisineCatID = c.CusineCatID "+FindWithSearch+" "+FindWithCategoryID+" order by stallName";
-			}
+			String sqlStr = "select c.CategoryName,s.StallLocation, s.StallName, s.ImageLocation, s.StoreID from stall as s, category as c where s.CuisineCatID = c.CusineCatID "+ getNameCategory + " " + getNameSearch + " order by stallName";
+			
 			ResultSet rs = stmt.executeQuery(sqlStr);
 			
 			while(rs.next()) {
 				FindProduct uBean = new FindProduct();
 				
-				uBean.setCategory_name(rs.getString(1));
-				uBean.setStall_location(rs.getString(2));
-				uBean.setStall_name(rs.getString(3));
-				uBean.setStall_img(rs.getString(4));
-				uBean.setStall_storeid(rs.getInt(5));
+				uBean.setCategory_name(rs.getString("c.CategoryName"));
+				uBean.setStall_location(rs.getString("s.StallLocation"));
+				uBean.setStall_name(rs.getString("s.StallName"));
+				uBean.setStall_img(rs.getString("s.ImageLocation"));
+				uBean.setStall_storeid(rs.getInt("s.StoreID"));
 				
 				List_of_NameandcatProduct.add(uBean);
 			}

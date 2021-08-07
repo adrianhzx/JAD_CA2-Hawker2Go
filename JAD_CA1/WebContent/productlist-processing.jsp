@@ -1,6 +1,7 @@
+<%@page import="model.*"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="config.DbConfigs" %>
-
+<%@ page import="config.DbConfigs"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -9,6 +10,7 @@
 	<meta charset="ISO-8859-1">
 	<title>List of Products</title>
 	<link rel="stylesheet" href="headerfooter_style.css" />
+	<link rel="stylesheet" href="main.css" />
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
@@ -32,230 +34,122 @@
 	<body>
 	
 		<%
-
-			String testing = request.getParameter("SearchProcessing");
-			String testing2 = request.getParameter("optradio");
-			
 			String getUserSessionName = "";
-			getUserSessionName = (String)session.getAttribute("fname");
+		getUserSessionName = (String) session.getAttribute("fname");
+		//out.print(getUserSessionName);
+		%>
+
+		<%
+			ArrayList catResult = (ArrayList) request.getAttribute("getallCat");
+		%>
+		<%
 			
-			String getCategory = request.getParameter("category");
-			String getSearch = request.getParameter("name");
+			ArrayList getsearchandidResult = (ArrayList) request.getAttribute("Findallwithsearchandcatid");
+		%>
+		<%
 			
-			String getNameCategory = "";
-			if(request.getParameter("category") != null){
-				getNameCategory = " and c.CategoryName='" + request.getParameter("category") + "' ";
-			}else{
-				getNameCategory = "";
-			}
+			String GetSearch = (String) request.getAttribute("GetSearch");
+		%>
+			<%
 			
-			String getNameSearch = "";
-			if(request.getParameter("name") != null){
-				getNameSearch = " and s.stallName like '"+request.getParameter("name")+"%' " ;
-			}else{
-				getNameSearch = "";
-			}
+			Integer GetCatId = (Integer) request.getAttribute("GetCatId");
 		%>
 	
 		<%@include file="header.jsp"%>
 		<!-- Search bar with buttons p-4 pt-5" -->
 		<div class="container">
-			<form action="productlist-processing.jsp" method="post">
-				<div class="row p-4 pt-5">
-	
-					<div class="col-md-4">
-						<div class="input-group rounded">
-							<input type="search" class="form-control rounded"
-								placeholder="Search" aria-label="Search"
-								aria-describedby="search-addon" name="SearchProcessing" />
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="dropdown">
-							<button class="btn btn-primary dropdown-toggle" type="button"
-								data-toggle="dropdown">
-								Type of Cuisine <span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu p-2">
-								<%
-									String Category_Name;
-								int Category_cusineCatID;
-	
-								try {
-	
-									// Step1: Load JDBC Driver - TO BE OMITTED for newer drivers
-									Class.forName("com.mysql.jdbc.Driver");
-	
-									// Step 2: Define Connection URL
-									String connURL = "jdbc:mysql://localhost/"+DbConfigs.db_name+"?user="+DbConfigs.db_user+"&password="+DbConfigs.db_password+"&serverTimezone=UTC";
-	
-									// Step 3: Establish connection to URL
-									Connection conn = DriverManager.getConnection(connURL);
-	
-									// Step 4: Create Statement object
-									Statement stmt = conn.createStatement();
-	
-									// Step 5: Execute SQL Command
-									String sqlStr = "select * from category";
-									ResultSet rs = stmt.executeQuery(sqlStr);
-	
-									// Step 6: Process Result
-									while (rs.next()) {
-										Category_Name = rs.getString("CategoryName");
-										Category_cusineCatID = rs.getInt("CusineCatID");
-	
-										out.print("<div class='radio'><label><input type='radio' value='" + Category_cusineCatID + "' name='optradio'>"
-										+ Category_Name + "</label></div>");
-									}
-	
-									// Step 7: Close connection
-									conn.close();
-								} catch (Exception e) {
-									out.print("Error" + e);
+			<div class="row ml-2 mt-5 mr-5 mb-3">
+				<div class="col">
+					<form action="ProductSearching" method="post">
+						<input class="input-styling" type="text" placeholder="E.g Beauty World Porridge" style="width: 300px;" name="name" value="<%=GetSearch%>"/>
+						<select class="input-styling" name="category">
+							<option value='0'>All</option>
+							<%
+								for (int catCounter = 0; catCounter < catResult.size(); catCounter++) {
+								ProductSearch uBean = (ProductSearch) catResult.get(catCounter);
+								if(uBean.getCategoryId() == GetCatId){
+							%>
+							<option value="<%=uBean.getCategoryId()%>" selected><%=uBean.getCategoryName()%></option>
+							<%
+								} else {
+							%>
+							<option value="<%=uBean.getCategoryId()%>"><%=uBean.getCategoryName()%></option>
+							<%
 								}
-								%>
-							</ul>
-						</div>
-					</div>
-					<div class="ml-auto">
-						<button type="submit" class="btn btn-primary">Search</button>
-					</div>
+							%>
+							<%
+								}
+							%>
+						</select>
+						<button type="submit" class="input-styling float-right">Search</button>
+					</form>
 				</div>
-			</form>
+			</div>
 		</div>
 	
 		<!-- name of head -->
-		<h2 class="d-flex justify-content-center">Products</h2>
-	
-		<!-- testing layout of img first -->
+		<h1 class="d-flex justify-content-center">Products</h1>
 	
 		<div class="container-xl">
 			<div class="row p-4">
 				<%
-					// getting results for all
-	
-				String stall_category_name;
-				String stall_location;
-				String stall_name;
-				String stall_img;
-				int stall_storeid;
-	
-				String FindWithSearch;
-				if (testing != null) {
-					FindWithSearch = " and s.stallName like '" + testing + "%' ";
-				} else {
-					FindWithSearch = "";
-				}
-	
-				String FindWithCategoryID;
-				if (testing2 != null) {
-					FindWithCategoryID = " and s.CuisineCatID='" + testing2 + "' ";
-				} else {
-					FindWithCategoryID = "";
-				}
-	
-				try {
-	
-					// Step1: Load JDBC Driver - TO BE OMITTED for newer drivers
-					Class.forName("com.mysql.jdbc.Driver");
-	
-					// Step 2: Define Connection URL
-					String connURL = "jdbc:mysql://localhost/"+DbConfigs.db_name+"?user="+DbConfigs.db_user+"&password="+DbConfigs.db_password+"&serverTimezone=UTC";
-	
-					// Step 3: Establish connection to URL
-					Connection conn = DriverManager.getConnection(connURL);
-	
-					// Step 4: Create Statement object
-					Statement stmt = conn.createStatement();
-	
-					// Step 5: Execute SQL Command
-					String sqlStr = "";
-					if(request.getParameter("category") != null){
-						sqlStr = "select * from stall as s, category as c where s.CuisineCatID = c.CusineCatID "+getNameCategory+" order by stallName";
-					}else if (request.getParameter("name") != null){
-						sqlStr = "select * from stall as s, category as c where s.CuisineCatID = c.CusineCatID "+getNameSearch+" order by stallName";
-					}
-					else{
-					sqlStr = "select * from stall as s, category as c where s.CuisineCatID = c.CusineCatID "+FindWithSearch+" "+FindWithCategoryID+" order by stallName";
-					}
-					ResultSet rs = stmt.executeQuery(sqlStr);
-	
-					// Step 6: Process Result
-					while(rs.next()){
-						stall_category_name = rs.getString("CategoryName");
-						stall_location = rs.getString("StallLocation");
-						stall_name = rs.getString("StallName");
-						stall_img = rs.getString("ImageLocation");
-						stall_storeid = rs.getInt("StoreID");
-					
-						if(getUserSessionName != null){
-							%>
-							<div class='col-md-4'>
-								<img alt='testing1' src='./images/Food/<%=stall_img%>'
-									width='288' height='369'>
-								<h3 class='Product-Category-name'><%=stall_category_name%></h3>
-								<p class='Product-Location-name'>
-									<i class='fa fa-map-marker' aria-hidden='true'></i><%=stall_location%></p>
-								<h3 class='Product-name'><%=stall_name%></h3>
-								<div class='float-right pr-5 pt-3 pb-3'>
-									<a href='selectOrder.jsp?StoreID=<%=stall_storeid%>'
-										class='btn btn-danger' role='button'>More Info</a>
-								</div>
-							</div>
-							<%
-						}else{
-							
-							%>
-							<div class='col-md-4'>
-								<img alt='testing1' src='./images/Food/<%=stall_img%>'
-									width='288' height='369'>
-								<h3 class='Product-Category-name'><%=stall_category_name%></h3>
-								<p class='Product-Location-name'>
-									<i class='fa fa-map-marker' aria-hidden='true'></i><%=stall_location%></p>
-								<h3 class='Product-name'><%=stall_name%></h3>
-								<div class='float-right pr-5 pt-3 pb-3'>
-									<button type='button' class='btn btn-primary' data-toggle='modal'
-										data-target='#exampleModal'>More Info</button>
-									<div class='modal fade' id='exampleModal' tabindex='-1'
-										role='dialog' aria-labelledby='exampleModalLabel'
-										aria-hidden='true'>
-										<div class='modal-dialog' role='document'>
-											<div class='modal-content'>
-												<div class='modal-header'>
-													<h5 class='modal-title' id='exampleModalLabel'>Have you
-														created an account?</h5>
-													<button type='button' class='close' data-dismiss='modal'
-														aria-label='Close'>
-														<span aria-hidden='true'>&times;</span>
-													</button>
-												</div>
-												<div class='modal-body'>Hi there! In order to buy foods,
-													please sign up an account with us. If you're an existing user,
-													please log in to your account.</div>
-												<div class='modal-footer'>
-													<button type='button' class='btn btn-secondary'
-														data-dismiss='modal'>Close</button>
-													<a href='login.jsp' role='button' class='btn btn-primary'>SignUp/Login</a>
-												</div>
-											</div>
-										</div>
+				for (int productCounter = 0; productCounter < getsearchandidResult.size(); productCounter++) {
+				FindProduct uBean = (FindProduct) getsearchandidResult.get(productCounter);
+			%>
+				<div class='col-md-4'>
+					<img alt='testing1' src='./images/Food/<%=uBean.getStall_img()%>' width='288'
+						height='369'>
+					<h3 class="important-heading"><%=uBean.getCategory_name().toUpperCase()%></h3>
+					<p class='m-0 pl-1 text-secondary'>
+						<i class='fa fa-map-marker' aria-hidden='true'></i><%=uBean.getStall_location()%></p>
+					<h2 class="font-weight-normal text-dark"><%=uBean.getStall_name()%></h2>
+					<div class='float-right pr-5 pt-3 pb-3'>
+						<%
+				if (getUserSessionName == null) { 
+			%>
+						<button type='button' class='page-button' data-toggle='modal'
+							data-target='#exampleModal'>More Info</button>
+						<div class='modal fade' id='exampleModal' tabindex='-1'
+							role='dialog' aria-labelledby='exampleModalLabel'
+							aria-hidden='true'>
+							<div class='modal-dialog' role='document'>
+								<div class='modal-content'>
+									<div class='modal-header'>
+										<h5 class='modal-title' id='exampleModalLabel'>Have you
+											created an account?</h5>
+										<button type='button' class='close' data-dismiss='modal'
+											aria-label='Close'>
+											<span aria-hidden='true'>&times;</span>
+										</button>
+									</div>
+									<div class='modal-body'>Hi there! In order to buy foods,
+										please sign up an account with us. If you're an existing user,
+										please log in to your account.</div>
+									<div class='modal-footer'>
+										<button type='button' class='btn btn-secondary'
+											data-dismiss='modal'>Close</button>
+										<a href='login.jsp' role='button' class='btn btn-primary'>SignUp/Login</a>
 									</div>
 								</div>
 							</div>
-							<%
-						};
-					}
-	
-					// Step 7: Close connection
-					conn.close();
-	
-				} catch (Exception e) {
-					out.print("Error" + e);
+						</div>
+						<%	} else { %>
+						<button type='button' class='page-button' data-toggle='modal'
+							data-target='#exampleModal'
+							onclick="window.location.href='selectOrder.jsp?StoreID=<%=uBean.getStall_storeid()%>';">More
+							Info</button>
+						<%  } %>
+					</div>
+				</div>
+				
+			<%
 				}
-				%>
+			%>
+			
 	
 			</div>
 		</div>
+
 		<%@include file="footer.html"%>
 	</body>
 	<script type="text/javascript">

@@ -57,7 +57,7 @@ public class DeleteStall extends HttpServlet {
 			int i = stmt.executeUpdate(sqlStr);
 			
 			if(i>0) {
-				out.print( i + " Record has been deleted");
+				//out.print( i + " Record has been deleted");
 				ifdeleted = true;
 			}
 			

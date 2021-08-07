@@ -5,7 +5,7 @@
 @import url(//fonts.googleapis.com/css?family=Lato);
 
 body {
-	font-family: Lato;
+	font-family: Lato !important;
 	margin: 0px;
 }
 
@@ -25,9 +25,29 @@ body {
 	height: 310px;
 }
 
-h1, h2 {
+/* Heading Styling */
+h1, h2, h3, h4, h5, h6 {
+	margin: 0px !important;
+}
+
+h1 { font-size: 2em !important; padding: 14px 5px !important; }
+h2 { font-size: 1.75em !important; padding: 11px 4px !important; }
+h3 { font-size: 1.26em !important; padding: 9px 3.5px !important;}
+h4 { font-size: 1em !important; padding: 7px 2px !important; }
+h5 { font-size: 0.83em !important; padding: 6px 1.5px !important;}
+h6 { font-size: 0.75em !important; padding: 5px 1px !important;}
+
+h1, h2, h3.important-heading, h4.important-heading {
+	padding: 16px 5px;
 	font-family: "Arsenal";
+	font-weight: bold !important;
 	color: #bb0959;
+}
+
+h3, h4, h5, h6 {
+	padding: 16px 5px;
+	font-family: "Arsenal";
+	color: #808080;
 }
 
 /* Section */
@@ -72,7 +92,7 @@ h1, h2 {
 
 /* Category Image -- index.jsp */
 td .category-image {
-	width: 85%;
+	width: 80%;
 	height: 200px;
 	object-fit: cover;
 	border-radius: 4px;
@@ -90,7 +110,7 @@ td .category-image:hover {
 
 .category-title {
 	position: absolute;
-	left: 59%;
+	left: 53%;
 	top: 55%;
 	text-align: right;
 	z-index: 1;
@@ -109,26 +129,41 @@ td .category-image:hover {
 }
 
 .input-styling {
-	padding: 8px 30px 8px;
+	padding: 5px 30px 5px;
 	font-family: Lato;
 	margin-right: 12px;
 }
 
+select.input-styling {
+	padding: 7.5px 30px 7.5px;
+}
 .bottom-border {
 	border: none;
 	border-bottom: 1px solid black;
 }
 
-.input-styling[type="submit"] {
+/* Button Styling */
+.input-styling[type="submit"], .page-button, .page-button-update {
 	background-color: #7407f8;
+	padding: 5px 30px 5px;
 	border: none;
 	font-family: Lato;
 	font-weight: bold;
 	color: white;
 }
 
-.input-styling[type="submit"]:disabled {
+.page-button {
+	background-color: #a42213;
+}
+
+.input-styling[type="submit"]:disabled, .page-button:disabled, .page-button-update:disabled { 
 	background-color: gray;
+}
+
+.borderless-input {
+	border: none;
+	text-align: center;
+	width: 60px;
 }
 
 /* Login Container */
@@ -173,4 +208,16 @@ td .category-image:hover {
 
 .clickable-row .fa-pencil:hover {
 	color: blue;
+}
+
+/* AdminUpdateAddStall.jsp */
+
+.modifyname{
+	font-family: Arsenal;
+}
+
+/* admin.jsp */
+
+.selected-row {
+	 background-color: #7FFF94;
 }

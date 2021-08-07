@@ -1,27 +1,26 @@
-package controller;
+package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import dao.SqlProductSearch;
-import model.*;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class SrvCategory
+ * Servlet implementation class Selectingstall
  */
-@WebServlet("/Product")
-public class SrvCategory extends HttpServlet {
+@WebServlet("/Selectingstall")
+public class Selectingstall extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SrvCategory() {
+    public Selectingstall() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +30,15 @@ public class SrvCategory extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+		PrintWriter out = response.getWriter();
 		
+		String getStoreID = request.getParameter("StoreID");
 		
-		request.setAttribute("getallCat", new SqlProductSearch().getCategoryResult());
-		request.setAttribute("getallProducts", new SqlProductSearch().getListofProduct());
-		
-		request.getRequestDispatcher("productlist.jsp").include(request, response);
-		
+		if(getStoreID != null) {
+			response.sendRedirect("admin.jsp?Storeid="+ getStoreID);
+		}
+			
 	}
 
 	/**
@@ -45,8 +46,7 @@ public class SrvCategory extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		
+		doGet(request, response);
 	}
 
 }

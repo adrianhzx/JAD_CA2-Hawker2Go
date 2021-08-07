@@ -41,19 +41,19 @@ public class ProductSearching extends HttpServlet {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
 		
-		String getCategoryfromindex = request.getParameter("category");
-		String getSearchfromindex = request.getParameter("stall-name");
-	
 		
-		String getSearch = request.getParameter("SearchProcessing");
-		String getCatid = request.getParameter("optradio");
 		
-		//System.out.print("GETING SEARCH: " + getSearch);
-		//System.out.print("GETING GETCAID: " + getCatid);
+		
+		Integer getCategoryHeader = (request.getParameter("category") != null) ? Integer.parseInt(request.getParameter("category")) : 0;
+		String getSearchHeader = request.getParameter("name");
+		
+		
+		request.setAttribute("GetSearch", getSearchHeader);
+		request.setAttribute("GetCatId", getCategoryHeader);
 		
 		request.setAttribute("getallCat", new SqlProductSearch().getCategoryResult());
 		
-		request.setAttribute("Findallwithsearchandcatid", new SqlProductSearch().getListofProductWithName(getSearch, getCatid,getSearchfromindex, getCategoryfromindex));
+		request.setAttribute("Findallwithsearchandcatid", new SqlProductSearch().getListofProductWithName(getSearchHeader, getCategoryHeader));
 		
 		request.getRequestDispatcher("productlist-processing.jsp").include(request, response);
 		

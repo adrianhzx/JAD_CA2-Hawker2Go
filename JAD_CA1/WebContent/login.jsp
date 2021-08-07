@@ -5,13 +5,26 @@
 	<head>
 		<meta charset="ISO-8859-1">
 		<title>Login/Sign Up</title>
-		<style>	
-			<%@include file="headerfooter_style.css" %>
-			<%@include file="main.css" %>
-		</style>
-		<!--  <link rel="stylesheet" href="headerfooter_style.css" /> -->
+		<link rel="stylesheet" href="headerfooter_style.css" />
 		<link rel="stylesheet" href="main.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+		<!-- bootstrap 4.5 -->
+		<link rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+			integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+			crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+			integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+			integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+			crossorigin="anonymous"></script>
 	</head>
 	<body>
 		<%@include file="header.jsp"%>
@@ -42,15 +55,15 @@
 					<form action="RegisterUser" method="POST">
 						<div class="input-icons">
 							<i class="fa fa-user icon"></i>
-							<input class="input-styling bottom-border" type="text" placeholder="First Name" name="fname" required/>    
-							<input class="input-styling bottom-border" type="text" placeholder="Last Name" name="lname" required/><br><br>
+							<input class="input-styling bottom-border" type="text" placeholder="First Name" name="fname" style="width:40%" required/>    
+							<input class="input-styling bottom-border" type="text" placeholder="Last Name" name="lname" style="width:40%" required/><br><br>
 							
 							<i class="fa fa-envelope icon"></i>
-							<input class="input-styling bottom-border" type="text" placeholder="Email" name="email" style="width:75%" required/><br><br>
+							<input class="input-styling bottom-border" type="text" placeholder="Email" name="email" style="width:85%" required/><br><br>
 							<i class="fa fa-lock icon"></i>
-							<input class="input-styling bottom-border" type="password" placeholder="Password" name="password" style="width:75%" required/><br><br>
+							<input class="input-styling bottom-border" type="password" placeholder="Password" name="password" style="width:85%" required/><br><br>
 							<i class="fa fa-lock icon"></i>
-							<input class="input-styling bottom-border" type="password" placeholder="Confirm Password" name="password-cfm" style="width:75%" required/><br><br>
+							<input class="input-styling bottom-border" type="password" placeholder="Confirm Password" name="password-cfm" style="width:85%" required/><br><br>
 							
 							<input class="input-styling" type="submit" name="register" value="Sign Up" />
 						</div>

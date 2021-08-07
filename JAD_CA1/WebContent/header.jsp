@@ -18,6 +18,12 @@
 	if (sess.getAttribute("administrator") != null) {
 		isAdministrator = (Boolean) sess.getAttribute("administrator");
 	}
+	
+	ArrayList<CartItem> cart = new ArrayList<CartItem>();
+	
+	if (sess.getAttribute("cart") != null) {
+		cart = (ArrayList<CartItem>) sess.getAttribute("cart");
+	}
 %>
 <header>
 	<a href="index.jsp">
@@ -50,28 +56,11 @@
 		
 		<li><a href="OrderSummary.jsp" class="head-link" id="shopping-cart">
 			<i class="fa fa-shopping-cart"></i>
-			
-			
-			
-			<%if((Integer)sess.getAttribute("countering") == null){ %>
+			<%if(cart == null || cart.isEmpty()){ %>
 				0
-			<%} %>
-			<% if((Integer)sess.getAttribute("countering") != null){%>
-				<script type="text/javascript">
-				//window.onload = function() {
-				//	if(!window.location.hash) {
-				//		window.location = window.location + '#';
-				//		window.location.reload();
-				//	}
-				//}
-				</script>
-				<%out.print((Integer)sess.getAttribute("countering"));%>
-				<%-- <%out.print((Integer)sess.getAttribute("countering"));%> --%>
-						
+			<%} else { %>
+				<%out.print(cart.size());%>
 			<%};%>
-			
-			
-			
 		</a></li>
 	</ul>
 </header>

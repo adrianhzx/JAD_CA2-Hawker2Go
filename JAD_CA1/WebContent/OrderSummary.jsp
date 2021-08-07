@@ -11,6 +11,7 @@
 	<meta charset="ISO-8859-1">
 	<title>Insert title here</title>
 	<link rel="stylesheet" href="headerfooter_style.css" />
+	<link rel="stylesheet" href="main.css" />
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	
@@ -32,14 +33,12 @@
 		crossorigin="anonymous"></script>
 	</head>
 	<body>
-	
-	
 		<%@include file="header.jsp"%>
-		
+
 		<div class="container">
-			<h2 class="pt-2 pb-2 cart-h2">
+			<h1 class="pt-2 pb-2 cart-h2">
 				<i class="fa fa-shopping-cart" aria-hidden="true"></i> Your Cart
-			</h2>
+			</h1>
 	
 			<%
 				String product_name;
@@ -51,19 +50,13 @@
 				double subtotal = 0;
 				boolean checkForSubtotal = false;
 				
-				// ------------>	MODIFIED 
-				ArrayList<CartItem> cart = new ArrayList<CartItem>();
-				if (sess.getAttribute("cart") != null) {
-					cart = (ArrayList<CartItem>) sess.getAttribute("cart");
-				}
-				
 				//	Check if the cart is empty
 				if (cart.isEmpty()) { %>
 					<div>
 						<h3 class='pt-2 pb-1'>Oh no! Looks like your cart is empty. <i class='fa fa-frown-o' aria-hidden='true'></i></h3>
 					</div>
 					<div class='pt-2 pb-1'>
-						<button type='reset' name='button' class='btn btn-danger' id='buttonReturn' value='Return'>Return</button>
+						<button type='reset' name='button' id='buttonReturn' class="page-button" value='Return'>Return</button>
 					</div>
 			<%	} else {
 					checkForSubtotal = true;
@@ -72,12 +65,11 @@
 						counter++;
 						String formatted_price = String.format("$%.2f", item.getPrice() * item.getQuantity());
 			%>
-			<% sess.setAttribute("countering", counter); %>
 					<div class='row'>
 						<div class='col'>
-							<h3 class='pt-2 pb-1 stallname'><%=item.getstallName()%></h3>
+							<h3 class='pt-2 pb-1 stallname important-heading'><%=item.getstallName()%></h3>
 							<p class='float-right'><strong><%=formatted_price %></strong></p>
-							<p><strong><%=item.getQuantity()%> X</strong> &nbsp; <%=item.getproductName() %></p>
+							<p class="pl-2"><strong><%=item.getQuantity()%> X</strong> &nbsp; <%=item.getproductName() %></p>
 						</div>
 					</div>
 			<%		}	
@@ -89,9 +81,7 @@
 				<p style="border-top: 2px solid; padding-top: 2px"></p>
 				<div class="row">
 					<div class="col">
-						<p>
-							<strong>Subtotal</strong>
-						</p>
+						<p><strong>Subtotal</strong></p>
 					</div>
 					<div class="col">
 						<p class="float-right">
@@ -102,13 +92,11 @@
 				<div class="row">
 					<div class="col ">
 						<form action="deductionofStocks" method="GET">
-							<!-- <input type="hidden" name="mydata" value=""> -->
 							<%
 								//session.setAttribute("quantity1", quantity1);
 								//session.setAttribute("getProductID", getProductID);
 							%>
-							<input class="float-right btn btn-primary" type="submit"
-								value="Check Out" />
+							<br><input class="float-right input-styling" type="submit" value="Check Out" />
 						</form>
 					</div>
 				</div>

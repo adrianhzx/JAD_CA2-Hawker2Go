@@ -14,6 +14,7 @@ import javax.servlet.http.*;
 import org.apache.commons.fileupload.*;
 import org.apache.commons.fileupload.disk.*;
 import org.apache.commons.fileupload.servlet.*;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.output.*;
 
 /**
@@ -96,31 +97,47 @@ public class FileUpload extends HttpServlet {
 		                
 		                // supposedly, fileName need to be global in order to get its value ltr.
 		                fileName = fi.getName();
+		               
+		                // AFTER further testing, this needs to be included.
+		                // Because IE and Google Chrome runs differently, it can read the filepath wrongly
+		                // Thanks to FilenameUtils, it finally helps.
+		                if (fileName != null) {
+		                	fileName = FilenameUtils.getName(fileName);
+		                }
 		                
+		                		                
 		                //getting memory and file size
 		                boolean isInMemory = fi.isInMemory();
 		                long sizeInBytes = fi.getSize();
 		             
 		                // Write the file
+		                
 		                if( fileName.lastIndexOf("\\") >= 0 ) {
 		                   file = new File( filePath + 
-		                   fileName.substring( fileName.lastIndexOf("\\"))) ;
+		                   fileName.substring( fileName.lastIndexOf("\\"))) ;		             
 		                } else {
 		                   file = new File( filePath + 
-		                   fileName.substring(fileName.lastIndexOf("\\")+1)) ;
+		                   fileName.substring(fileName.lastIndexOf("\\")+1)) ;	         
 		                }
 		                     
 		                fi.write( file ) ;
-		                //out.println("Uploaded Filename: " + filePath + fileName + "<br>");		    
+		                //fileName = fileName.substring( fileName.lastIndexOf("\\"));	  
+		                //out.print("checkname = " + fileName);
+		                //out.println("Uploaded Filename: " + filePath + "<br>");			              
 		                out.println("Loading image... Please Wait...");
+		                
 		             }
 		          }
 		         // same for here. DO NOT REMOVE
+		          
+		         
+		         
 		         out.println("</body>");
 		         out.println("</html>");
 		         out.println("<script type=\"text/javascript\">");		          
 		 		 out.println("alert('Image has been uploaded!');");
 		 		 // If there's storeID, it will be edit. Else create stall.
+		 		 session.setAttribute("trueorfalse", "test");
 		 		 if(stallgetStoreID != null){
 		 			 //This is for stall update.
 		 			 //out.println("location='AdminUpdateAddStall.jsp?Storeid="+stallgetStoreID+"&getImgName="+fileName+" ';");
@@ -133,10 +150,13 @@ public class FileUpload extends HttpServlet {
 		 		 out.println("</script>");
 		 		 // For edit, after we get the StoreID. throw away in case of duplicate or cannot be use again.
 		 		 session.removeAttribute(stallgetStoreID);
+		 		 //session.removeAttribute("trueorfalse");
+		 		 
 				
 			} catch (FileNotFoundException e) {
 				// TODO: handle exception
 				// No image, Will be returned.
+				
 				out.println("<script type=\"text/javascript\">");
 		 		out.println("alert('Error! Please upload an images in order to modify!');");
 		 		// If there's storeID, it will be edit. Else create stall.
@@ -148,6 +168,7 @@ public class FileUpload extends HttpServlet {
 					out.println("location='AdminUpdateAddStall.jsp;");
 				}
 		 		out.println("</script>");
+		 		
 			}
 		      
 		      catch (Exception e) {
@@ -164,7 +185,6 @@ public class FileUpload extends HttpServlet {
 		      out.println("</body>");
 		      out.println("</html>");
 		};
-		
 	}
 
 	/**

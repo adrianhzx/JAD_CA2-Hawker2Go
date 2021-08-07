@@ -36,17 +36,18 @@ public class EditStall extends HttpServlet {
 		String getStoreId = request.getParameter("Storeid");
 		String getStallName = request.getParameter("Stall_Name");
 		String getStallLocation = request.getParameter("Stall_Location");
-		String getStallCatName = request.getParameter("Stall_Cat");
+		int getStallCatID = Integer.parseInt(request.getParameter("Stall_Cat"));
 		String getStallDescription = request.getParameter("Stall_Description");
 		String getStallImg = request.getParameter("getImgName");
-	
-		//out.print("Stall Name = " + getStallName + "<br>" + "Stall Location = " + getStallLocation + "<br>" + "Stall Cat Name = " + getStallCatName + "<br>" + "Stall Description = " + getStallDescription + "<br>" + "Stall Img = " + getStallImging);
-		
-		int CatNameConvertCatID;
-		int CatId = 0;
-		boolean catConvertion = false;
-		try{
 			
+		//out.print("Stall Name = " + getStallName + "<br>" + "Stall Location = " + getStallLocation + "<br>" + "Stall Cat Name = " + getStallCatName + "<br>" + "Stall Description = " + getStallDescription + "<br>" + "Stall Img = " + getStallImg);
+		
+		/*
+		if(getStallImg.equals("null")) {
+			
+		}*/
+		
+		try{
 			// Step1: Load JDBC Driver - TO BE OMITTED for newer drivers
 			Class.forName("com.mysql.jdbc.Driver"); 
 			
@@ -59,6 +60,7 @@ public class EditStall extends HttpServlet {
 			// Step 4: Create Statement object
 			Statement stmt = conn.createStatement();
 			
+			/*
 			// Step 5: Execute SQL Command
 			String sqlStr = "select CusineCatID from category where CategoryName like '"+getStallCatName+"%'";
 			ResultSet rs = stmt.executeQuery(sqlStr);
@@ -68,49 +70,69 @@ public class EditStall extends HttpServlet {
 				CatNameConvertCatID = rs.getInt("CusineCatID");
 				CatId = CatNameConvertCatID;
 				catConvertion = true;
-			}
+			} */
 			
-			
-			if(catConvertion == true) {
-				
-				boolean recordUpdated = false;
-				
-				try{
-					
-					String UpdateStall = "UPDATE stall SET StallName = ?, StallLocation = ?, ImageLocation = ?, Description = ?, CuisineCatID = ? WHERE StoreID = ?;";
-					PreparedStatement psUpdate = conn.prepareStatement(UpdateStall);
+			boolean recordUpdated = false;
+
+			try {
+				if (getStallImg.equals("null")) {
+					String UpdateStallwithoutimg = "UPDATE stall SET StallName = ?, StallLocation = ?, Description = ?, CuisineCatID = ? WHERE StoreID = ?;";
+					PreparedStatement psUpdate = conn.prepareStatement(UpdateStallwithoutimg);
 					psUpdate.setString(1, getStallName);
 					psUpdate.setString(2, getStallLocation);
-					psUpdate.setString(3, getStallImg);
-					psUpdate.setString(4, getStallDescription);
-					psUpdate.setInt(5, CatId);
-					psUpdate.setString(6, getStoreId);
+					psUpdate.setString(3, getStallDescription);
+					psUpdate.setInt(4, getStallCatID); // modified
+					psUpdate.setString(5, getStoreId);
+
 					int count = psUpdate.executeUpdate();
-					
-					// Step 6: Process Result
-					
-					if(count>0) {
+
+					if (count > 0) {
 						out.print(count + " Recond has been updated");
 						recordUpdated = true;
 					}
-					
-					if(recordUpdated == true) {
+
+					if (recordUpdated == true) {
 						response.sendRedirect("admin.jsp");
 					}
 					// Step 7: Close connection
 					conn.close();
-					
-				}catch(Exception e){
-					out.print("Error" + e);
 				}
+
+				String UpdateStall = "UPDATE stall SET StallName = ?, StallLocation = ?, ImageLocation = ?, Description = ?, CuisineCatID = ? WHERE StoreID = ?;";
+				PreparedStatement psUpdate = conn.prepareStatement(UpdateStall);
+				psUpdate.setString(1, getStallName);
+				psUpdate.setString(2, getStallLocation);
+				psUpdate.setString(3, getStallImg);
+				psUpdate.setString(4, getStallDescription);
+				psUpdate.setInt(5, getStallCatID); // modified
+				psUpdate.setString(6, getStoreId);
+				int count = psUpdate.executeUpdate();
+
+				// Step 6: Process Result
+
+				if (count > 0) {
+					out.print(count + " Recond has been updated");
+					recordUpdated = true;
+				}
+
+				if (recordUpdated == true) {
+					response.sendRedirect("admin.jsp");
+				}
+				// Step 7: Close connection
+				conn.close();
+
+			} catch (Exception e) {
+				out.print("Error" + e);
 			}
 			
+			
+			/*
 			if(catConvertion == false) {
 				out.println("<script type=\"text/javascript\">");
 				out.println("alert('Error! Please check that Category is correct!');");
 				out.println("location='AdminUpdateAddStall.jsp?Storeid="+getStoreId+"';");
 				out.println("</script>");
-			}
+			}*/
 			
 				
 			// Step 7: Close connection

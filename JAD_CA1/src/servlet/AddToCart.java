@@ -35,6 +35,9 @@ public class AddToCart extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
+		//	Get stock
+		int max_stock = Integer.parseInt(request.getParameter("max"));
+		
 		//	Get action parameter
 		String action = request.getParameter("btnAction");
 		
@@ -72,7 +75,7 @@ public class AddToCart extends HttpServlet {
 			} else {
 				for (int i = 0; i < cart.size(); i++) {
 					CartItem itemToCheck = cart.get(i);
-					if (itemToCheck.getId() == productid) {
+					if (itemToCheck.getId() == productid && itemToCheck.getQuantity() < max_stock) {
 						itemToCheck.addQuantity();
 						//	-----------------------------
 						//	PRINT FOR DEBUGGING PURPOSES
