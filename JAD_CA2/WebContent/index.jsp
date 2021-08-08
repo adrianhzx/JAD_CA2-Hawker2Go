@@ -35,77 +35,53 @@
 				<tr>
 					<td class="pb-3">
 						<form action="ProductSearching" method="post">
-						<h2 class="category-title">Malay<br>Cuisine</h2>
+							<h2 class="category-title">Malay<br>Cuisine</h2>
 							<button type="submit" style="border: solid 0px #000000; background-color: white;" name="category" value="1">	
-								<input type="image" src="images/category/catMalay.png" alt="Malay cuisine" class="category-image"/>
+								<img src="images/category/catMalay.png" alt="Malay cuisine" class="category-image"/>
 							</button>	
 						</form>
-						<!-- <h2 class="category-title">Malay<br>Cuisine</h2>
-						<a href="productlist-processing.jsp?category=1">
-							<img src="images/category/catMalay.png" alt="Malay cuisine" class="category-image"/>
-						</a> -->
 					</td>
 					<td class="pb-3">
 						<form action="ProductSearching" method="post">
-						<h2 class="category-title">Chinese<br>Cuisine</h2>
+							<h2 class="category-title">Chinese<br>Cuisine</h2>
 							<button type="submit" style="border: solid 0px #000000; background-color: white;" name="category" value="2">	
-								<input type="image" src="images/category/catChinese.png" alt="Chinese cuisine" class="category-image"/>
-						</button>	
+								<img src="images/category/catChinese.png" alt="Chinese cuisine" class="category-image"/>
+							</button>	
 						</form>
-						<!-- <h2 class="category-title">Chinese<br>Cuisine</h2>
-						<a href="productlist-processing.jsp?category=2">
-							<img src="images/category/catChinese.png" alt="Chinese cuisine" class="category-image"/>
-						</a> -->
 					</td>
 					<td class="pb-3">
 						<form action="ProductSearching" method="post">
-						<h2 class="category-title">Indian<br>Cuisine</h2>
-						<button type="submit" style="border: solid 0px #000000; background-color: white;" name="category" value="3">	
-								<input type="image" src="images/category/catIndian.png" alt="Indian cuisine" class="category-image"/>
-						</button>
+							<h2 class="category-title">Indian<br>Cuisine</h2>
+							<button type="submit" style="border: solid 0px #000000; background-color: white;" name="category" value="3">	
+								<img src="images/category/catIndian.png" alt="Indian cuisine" class="category-image"/>
+							</button>
 						</form>
-						<!-- <h2 class="category-title">Indian<br>Cuisine</h2>
-						<a href="productlist-processing.jsp?category=3">
-							<img src="images/category/catIndian.png" alt="Indian cuisine" class="category-image"/>
-						</a> -->
 					</td>
 				</tr>
 				<tr>
 					<td class="pb-3">
 						<form action="ProductSearching" method="post">
-						<h2 class="category-title">Western<br>Cuisine</h2>
-						<button type="submit" style="border: solid 0px #000000; background-color: white;" name="category" value="4">	
-								<input type="image" src="images/category/catWestern.png" alt="Western cuisine" class="category-image"/>
-						</button>	
+							<h2 class="category-title">Western<br>Cuisine</h2>
+							<button type="submit" style="border: solid 0px #000000; background-color: white;" name="category" value="4">	
+								<img src="images/category/catWestern.png" alt="Western cuisine" class="category-image"/>
+							</button>	
 						</form>
-						<!-- <h2 class="category-title">Western<br>Cuisine</h2>
-						<a href="productlist-processing.jsp?category=4">
-							<img src="images/category/catWestern.png" alt="Western cuisine" class="category-image"/>
-						</a> -->
 					</td>
 					<td class="pb-3">
 						<form action="ProductSearching" method="post">
-						<h2 class="category-title">Japanese<br>Cuisine</h2>
-						<button type="submit" style="border: solid 0px #000000; background-color: white;" name="category" value="5">	
-								<input type="image" src="images/category/catJapanese.png" alt="Japanese cuisine" class="category-image"/>
-						</button>
-						<form action="ProductSearching" method="post">
-						<!-- <h2 class="category-title">Japanese<br>Cuisine</h2>
-						<a href="productlist-processing.jsp?category=5">
-							<img src="images/category/catJapanese.png" alt="Japanese cuisine" class="category-image"/>
-						</a> -->
+							<h2 class="category-title">Japanese<br>Cuisine</h2>
+							<button type="submit" style="border: solid 0px #000000; background-color: white;" name="category" value="5">	
+								<img src="images/category/catJapanese.png" alt="Japanese cuisine" class="category-image"/>
+							</button>
+						</form>
 					</td>
 					<td class="pb-3">
 						<form action="ProductSearching" method="post">
-						<h2 class="category-title">Quick<br>Bites</h2>
-						<button type="submit" style="border: solid 0px #000000; background-color: white;" name="category" value="6">	
-								<input type="image" src="images/category/catSnacks.png" alt="Quick Bites" class="category-image"/>
-						</button>	
+							<h2 class="category-title">Quick<br>Bites</h2>
+							<button type="submit" style="border: solid 0px #000000; background-color: white;" name="category" value="6">	
+								<img src="images/category/catSnacks.png" alt="Quick Snacks" class="category-image"/>
+							</button>	
 						</form>
-						<!-- <h2 class="category-title">Quick<br>Bites</h2>
-						<a href="productlist-processing.jsp?category=6">
-							<img src="images/category/catSnacks.png" alt="Quick Snacks" class="category-image"/>
-						</a> -->
 					</td>
 				</tr>
 			</table>

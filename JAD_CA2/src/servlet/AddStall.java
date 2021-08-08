@@ -45,6 +45,7 @@ public class AddStall extends HttpServlet {
 		int getStallCatID = Integer.parseInt(request.getParameter("Stall_Cat"));
 		String getStallDescription = request.getParameter("Stall_Description");
 		String getStallImg = request.getParameter("getImgName");
+
 		
 		try{
 			

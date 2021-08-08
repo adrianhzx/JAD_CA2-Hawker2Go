@@ -17,6 +17,8 @@ import javax.servlet.http.HttpSession;
 
 // User Defined
 import config.DbConfigs;
+import dao.SqlUserQuery;
+import model.User;
 
 /**
  * Servlet implementation class RegisterUser
@@ -45,6 +47,11 @@ public class RegisterUser extends HttpServlet {
 		String repeat_password = request.getParameter("password-cfm");
 		
 		PrintWriter out = response.getWriter();
+		
+		User newUser = new User();
+		newUser.setUserFName(received_fname);
+		newUser.setUserLName(received_lname);
+		newUser.setUserEmail(email);
 		
 		//	Password Match
 		if (password.equals(repeat_password)) {
@@ -77,36 +84,12 @@ public class RegisterUser extends HttpServlet {
 		        	//	User with the email exists
 		        	response.sendRedirect("login.jsp?message=userExists");
 		        } else {
-		        	//	Add the user to the database
-		        	String addUserQuery = "INSERT INTO member(FirstName, LastName, Email, Password) VALUES (?, ?, ?, ?)";
-		        	PreparedStatement psAdd = conn.prepareStatement(addUserQuery);
-		        	psAdd.setString(1, received_fname);
-		        	psAdd.setString(2, received_lname);
-		        	psAdd.setString(3, email);
-		        	psAdd.setString(4, password);
-		        	psAdd.executeUpdate();
-		        	out.println("<br>User Successfully ADDED");
-
-		        	//	Get the id of the newly added user
-		        	int userId = 0;
-		        	ResultSet rs_id = st.executeQuery("SELECT * FROM member");
-		        	
-		        	while (rs_id.next()) {
-		        		//	Last column of the table
-		        		if (rs_id.isLast()) {
-			        		userId = rs_id.getInt("UserId");
-			        	}
-		        	}
-		        	
-		        	System.out.println("<br>ID of new user is " + userId);
-		        	//	Log in through session management
-		        	//	NOTE: The user role will be a member upon creation of account
-		        	
+		        	SqlUserQuery sqlquery = new SqlUserQuery();
+		        	int rowAdded = sqlquery.addUser(newUser, password); // row number returned
+		        	User addedUser = sqlquery.getUser(rowAdded);
+		       
 		        	HttpSession session = request.getSession(true);
-		        	session.setAttribute("fname", received_fname);
-		        	session.setAttribute("lname", received_lname);
-		        	session.setAttribute("administrator", false);
-		        	session.setAttribute("id", userId);
+		        	session.setAttribute("user", addedUser); 
 		        	session.setMaxInactiveInterval(3600); // 1 hour
 		        	
 		        	conn.close();

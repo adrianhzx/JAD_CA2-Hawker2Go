@@ -3,20 +3,29 @@
     pageEncoding="ISO-8859-1"%>
     
 <%@ page import="classes.CartItem" %>
+<%@ page import="model.*" %>
+<%@ page import="dao.SqlPaymentInfoQuery" %>
 <%@ page import="java.util.*" %>
 <%
 	//	Get session attributes
 	HttpSession sess = request.getSession();
 	
-	String firstName = (String) sess.getAttribute("fname");
-	String lastName = (String) sess.getAttribute("lname"); 
-	
-	String fullName = firstName + " " + lastName; 
-	
+	User userObj = (User) sess.getAttribute("user");
+	String firstName = "", fullName = "", lastName = "", email = "";
 	boolean isAdministrator = false;
+	if (userObj != null) {
+		firstName = userObj.getUserFName();
+		lastName = userObj.getUserLName();
+		fullName = firstName + " " + lastName; 
+		isAdministrator = userObj.isAdministrator();
+		email = userObj.getUserEmail();
+	}
 	
-	if (sess.getAttribute("administrator") != null) {
-		isAdministrator = (Boolean) sess.getAttribute("administrator");
+	//	User payment information
+	UserPaymentDetails pay_details = null;
+	if (userObj != null && !userObj.isAdministrator()) {
+		SqlPaymentInfoQuery payQuery = new SqlPaymentInfoQuery();
+		pay_details = payQuery.getPaymentMethod(userObj.getUserId());
 	}
 	
 	ArrayList<CartItem> cart = new ArrayList<CartItem>();
@@ -40,12 +49,13 @@
 		<% } %>
 		
 		<li>
-		<% if (firstName == null && lastName == null) { %>
+		<% if (firstName.equals("") && lastName.equals("")) { %>
 			<a href="login.jsp" class="head-link" id="login">Login</a>
 		<% } else {%>
 			<div class="dropdown">
 				<div class="head-link" id="user"><%=fullName%></div>
 				<div class="dropdown-content">
+					<button onclick="window.location.href = 'userInfo.jsp'">Your Info</button>
 					<form action="Invalidate" method="post">
 						<input type="submit" value="Sign Out"/>
 					</form>
@@ -54,14 +64,30 @@
 		<% } %>
 		</li>
 		
-		<li><a href="OrderSummary.jsp" class="head-link" id="shopping-cart">
-			<i class="fa fa-shopping-cart"></i>
-			<%if(cart == null || cart.isEmpty()){ %>
-				0
-			<%} else { %>
-				<%out.print(cart.size());%>
-			<%};%>
-		</a></li>
+		<% if (userObj != null && userObj.isAdministrator()) {%>
+			<li>
+				<a href="adminIncomingOrders.jsp" class="head-link" id="shopping-cart">
+					<i class="fa fa-cart-arrow-down"></i>
+					<%if(cart == null || cart.isEmpty()){ %>
+						0
+					<%} else { %>
+						<%out.print(cart.size());%>
+					<%};%>
+				</a>
+			</li>
+		<% } else { %>
+			<li>
+				<a href="OrderSummary.jsp" class="head-link" id="shopping-cart">
+					<i class="fa fa-shopping-cart"></i>
+					<%if(cart == null || cart.isEmpty()){ %>
+						0
+					<%} else { %>
+						<%out.print(cart.size());%>
+					<%};%>
+				</a>
+			</li>
+		<% } %>
+		
 	</ul>
 </header>
 

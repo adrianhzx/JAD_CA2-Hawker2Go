@@ -81,7 +81,7 @@
 				<h2 class="font-weight-normal text-dark"><%=uBean.getStall_name()%></h2>
 				<div class='float-right pr-5 pt-3 pb-3'>
 					<%
-						if (getUserSessionName == null) {
+						if (userObj == null) {
 					%>
 					<button type='button' class='page-button' data-toggle='modal'
 						data-target='#exampleModal'>More Info</button>

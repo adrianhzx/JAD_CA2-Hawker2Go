@@ -91,6 +91,9 @@ h3, h4, h5, h6 {
 }
 
 /* Category Image -- index.jsp */
+td button[name="category"] {
+	width: 100%
+}
 td .category-image {
 	width: 80%;
 	height: 200px;
@@ -142,6 +145,11 @@ select.input-styling {
 	border-bottom: 1px solid black;
 }
 
+.focused:focus {
+	background-color: #d3eaf1;
+	border: 1px solid blue;
+}
+
 /* Button Styling */
 .input-styling[type="submit"], .page-button, .page-button-update {
 	background-color: #7407f8;
@@ -183,7 +191,7 @@ select.input-styling {
 	height: 400px;
 }
 
-/* Error Message */
+/* Error/Success Message */
 .error-message {
 	margin-top: 20px;
 	padding: 10px 30px;
@@ -191,7 +199,15 @@ select.input-styling {
 	border-radius: 3px;
 	background-color: #fdd0d7;
 	color: red;
+}
 
+.success-message {
+	margin-top: 20px;
+	padding: 10px 30px;
+	border: 1px solid #00c600;
+	border-radius: 3px;
+	background-color: #b7ffb7;
+	color: #00c600;
 }
 
 /* cart.jsp */

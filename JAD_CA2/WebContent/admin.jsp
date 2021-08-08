@@ -39,11 +39,7 @@
 	<div class="container">
 
 		<%
-		Integer User_ID = (Integer) sess.getAttribute("id");
-
-		boolean checkingadmin = (Boolean) sess.getAttribute("administrator");
-
-		if (sess.getAttribute("administrator") != null && checkingadmin == false) {
+		if (!isAdministrator) {
 			response.sendRedirect("index.jsp");
 		}
 
@@ -70,7 +66,7 @@
 
 			// Step 5: Execute SQL Command
 			String sqlStr = "select * from stall as s, product as p, member as m where s.StoreID = p.StoreID and s.OwnerID = m.UserID and m.UserID = "
-			+ User_ID + "";
+			+ userObj.getUserId() + "";
 			ResultSet rs = stmt.executeQuery(sqlStr);
 
 			// Step 6: Process Result
@@ -120,7 +116,7 @@
 					<tbody>
 
 						<%
-							String Stall_name;
+						String Stall_name;
 						String stall_Location;
 						String Cat_name;
 						String ImageLocation;
@@ -144,7 +140,7 @@
 
 							// Step 5: Execute SQL Command
 							String sqlStr = "SELECT * FROM stall as s, category as c where s.CuisineCatID = c.CusineCatID and ownerid = '"
-							+ User_ID + "'";
+							+ userObj.getUserId() + "'";
 							ResultSet rs = stmt.executeQuery(sqlStr);
 
 							// Step 6: Process Result
