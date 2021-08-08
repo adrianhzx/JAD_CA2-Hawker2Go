@@ -68,11 +68,7 @@
 			<li>
 				<a href="adminIncomingOrders.jsp" class="head-link" id="shopping-cart">
 					<i class="fa fa-cart-arrow-down"></i>
-					<%if(cart == null || cart.isEmpty()){ %>
-						0
-					<%} else { %>
-						<%out.print(cart.size());%>
-					<%};%>
+					0
 				</a>
 			</li>
 		<% } else { %>
