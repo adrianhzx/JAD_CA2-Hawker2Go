@@ -34,7 +34,7 @@
 			String StoreID = request.getParameter("Storeid");
 			
 			// Check for administrator
-			if (sess.getAttribute("administrator") == null || (Boolean) sess.getAttribute("administrator") == false) {
+			if (!userObj.isAdministrator()) {
 				response.sendRedirect("index.jsp");
 			}
 		%>

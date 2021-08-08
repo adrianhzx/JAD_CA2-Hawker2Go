@@ -35,15 +35,11 @@
 		<%@include file="header.jsp"%>
 		
 		<% 
-		
 		String getStoreID = request.getParameter("Storeid"); 
 		String gettingImgName = request.getParameter("getImgName");
-		
 		Integer User_ID = (Integer)sess.getAttribute("id");
-	
-		boolean checkingadmin = (boolean)sess.getAttribute("administrator");
-	
-		if(checkingadmin == false){
+		
+		if (!userObj.isAdministrator()) {
 			response.sendRedirect("index.jsp");
 		}
 	

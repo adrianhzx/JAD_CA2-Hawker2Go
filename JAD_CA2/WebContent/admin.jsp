@@ -39,7 +39,7 @@
 	<div class="container">
 
 		<%
-		if (!isAdministrator) {
+		if (!userObj.isAdministrator()) {
 			response.sendRedirect("index.jsp");
 		}
 
