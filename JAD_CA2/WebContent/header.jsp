@@ -41,7 +41,7 @@
 	<ul id="head-link-container">
 		<li><a href="Product" class="head-link">Products</a></li>
 		<li><a href="#" class="head-link">About</a></li>
-		<% if (userObj != null) {%>
+		<% if (userObj != null && !userObj.isAdministrator()) {%>
 		<li><a href="OrderHistoryKey" class="head-link">Order History</a></li>
 		<%} %>
 		
@@ -71,7 +71,6 @@
 			<li>
 				<a href="adminIncomingOrders.jsp" class="head-link" id="shopping-cart">
 					<i class="fa fa-cart-arrow-down"></i>
-					0
 				</a>
 			</li>
 		<% } else { %>

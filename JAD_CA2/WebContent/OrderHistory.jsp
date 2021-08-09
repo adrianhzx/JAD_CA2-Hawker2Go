@@ -43,27 +43,22 @@
 	<%@include file="header.jsp"%>
 
 	<div class="container">
-		<h1>Order History</h1>
+		<h1 class="text-center">Order History</h1>
 	<%
 		for (int orderCounter = 0; orderCounter < orderHistoryKeyResult.size(); orderCounter++) {
 			OrderHistoryKey uBean = (OrderHistoryKey) orderHistoryKeyResult.get(orderCounter);
 		%>
-		<div class="border border-primary">
+		<section class="order-card px-4 py-2 mb-5 w-75">
 			<p>Receipt: <%=uBean.getOrderkey() %></p>
 			<p>Date: <%=uBean.getDate() %></p>
 			<p>Time: <%=uBean.getTime() %></p>
 		
 			<form action="OrderHistory" method="get" >
 				<input type="hidden" value="<%=uBean.getOrderkey() %>" name="getKey"/>
-				<button type="submit">View More</button>
-	
+				<button type="submit" class="page-button">View More</button>
 			</form>
-			
-		</div>
+		</section>
 		<%} %>
-		<!-- <div>
-			<h1>Curry Rice</h1>
-		</div> -->
 	</div>
 
 	<%@include file="footer.html"%>

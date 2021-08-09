@@ -32,9 +32,7 @@
 <body>
 	<%@include file="header.jsp"%>
 
-	<h1>Incoming orders</h1>
-	<p>You have no orders right now</p>
-
+	<h1 class="text-center">Incoming orders</h1>
 
 <div class="container">
 
@@ -55,12 +53,12 @@
 			String connURL = "jdbc:mysql://localhost/" + DbConfigs.db_name + "?user=" + DbConfigs.db_user + "&password="
 			+ DbConfigs.db_password + "&serverTimezone=UTC";
 			conn = DriverManager.getConnection(connURL);
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(
-			"select s.StallName,p.ProductName, o.quantity, o.address, orderkey, concat(m.FirstName,\" \", m.LastName) as name, o.storeID from stall as s, orders as o,member as m , product as p where s.storeID = o.storeID and o.fk_userID = m.UserID and p.productID = o.productID");
+			PreparedStatement ps = conn.prepareStatement("select s.StallName,p.ProductName, o.quantity, o.address, o.orderkey, concat(m.FirstName,\" \", m.LastName) as name, o.storeID, o.ordertime from stall as s, orders as o,member as m , product as p where s.storeID = o.storeID and o.fk_userID = m.UserID and p.productID = o.productID and s.OwnerID = ?");
+			ps.setInt(1, userObj.getUserId());
+			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
-
+				double idk = 0;
 				Stallname = rs.getString(1);
 				Productname = rs.getString(2);
 				quantity = rs.getInt(3);
@@ -71,31 +69,34 @@
 		%>
 
 
-		<section class="order-card">
+		<section class="order-card px-4 py-2 mb-5 w-75">
+			<div class="row">
+				<h2 class="pl-4"><%=Stallname%></h2>
+			</div>
 			<div class="row">
 				<div class="col">
 					<p class="pl-2">Order From: <%=UserName%></p>
 				</div>
 				<div class="col">
 					<p class="pr-2 text-right"><%=address%></p>
-					<p class="pr-2 text-right"><small><%=orderkey%></small></p>
+					<p class="pr-2 text-right"><small><%=rs.getTimestamp(8)%></small></p>
 				</div>
 			</div>
 			<hr></hr>
 			<%
 				
-				
 				try {
 					Class.forName("com.mysql.jdbc.Driver");
 					conn = DriverManager.getConnection(connURL);
 					Statement stmt2 = conn.createStatement();
-					ResultSet rs2 = stmt.executeQuery("SELECT p.ProductName, o.quantity, (o.quantity * p.retail_price) FROM hawker2go_jad.orders AS o, hawker2go_jad.product AS p WHERE p.storeID = o.StoreID AND o.StoreID = "+storeid+" AND o.orderkey = '"+orderkey+"'");
+					ResultSet rs2 = stmt2.executeQuery("SELECT p.ProductName, o.quantity, (o.quantity * p.retail_price) FROM hawker2go_jad.orders AS o, hawker2go_jad.product AS p WHERE p.storeID = o.StoreID AND o.StoreID = "+storeid+" AND o.orderkey = '"+orderkey+"'");
 					
-					while (rs2.next()) { %>
+					while (rs2.next()) { 
+						idk += rs2.getDouble(3);%>
 						<div class="row">
-							<div class="col-1">X<%=rs2.getInt(2)%></div>
+							<div class="col-1"><b>X<%=rs2.getInt(2)%></b></div>
 							<div class="col-3"><%=rs2.getString(1)%></div>
-							<div class="col"><p class="text-right"><%=rs2.getDouble(3) %></p></div>
+							<div class="col"><p class="text-right">$<%=rs2.getDouble(3) %></p></div>
 						</div>
 			<% 		}
 					
@@ -111,7 +112,7 @@
 				</div>
 				
 				<div class="col">
-					<p class="pr-2 text-right"><small><%=orderkey%></small></p>
+					<p class="pr-2 text-right">$<%=idk%></p>
 				</div>
 			</div>
 				<hr></hr>

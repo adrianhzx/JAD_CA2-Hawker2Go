@@ -47,9 +47,7 @@
 			OrderHistory uBean = (OrderHistory) orderHistoryResult.get(orderCounter);
 		%>
 		<div class='row'>
-
 			<div class='col'>
-
 				<h3 class='pt-2 pb-1 stallname important-heading'><%=uBean.getStallName()%></h3>
 				<p class='float-right'>
 					<strong><%=uBean.getPrice()%></strong>

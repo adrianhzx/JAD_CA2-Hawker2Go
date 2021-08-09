@@ -191,6 +191,9 @@ select.input-styling {
 	height: 400px;
 }
 
+.order-card {
+	background-color: #ffffc4;
+}
 /* Error/Success Message */
 .error-message {
 	margin-top: 20px;
