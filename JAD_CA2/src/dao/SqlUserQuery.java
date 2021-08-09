@@ -69,6 +69,14 @@ public class SqlUserQuery {
 			while(rs.next()) {
 				addedId = rs.getInt(1);
 			}
+			
+			//	Add Default payment information
+			String insertPayment = "INSERT INTO paymentmethod(methodID, cardID, fk_userID) VALUES (1, NULL, ?)";
+			PreparedStatement ps_2 = conn.prepareStatement(insertPayment);
+			ps_2.setInt(1, addedId);
+			ps_2.executeUpdate();
+			
+			conn.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
