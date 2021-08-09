@@ -187,9 +187,11 @@
 										<i class="fa fa-pencil" aria-hidden="true"></i>
 									</button>
 								</form>
-
+								
+								<button style="padding: 0; border: none; background: none;" onclick="window.location.href='productAdminStats.jsp?storeID=<%=Storeid%>'">
+									<i class="fa fa-line-chart" aria-hidden="true"></i>
+								</button>
 							</th>
-
 						</tr>
 						<%
 							}

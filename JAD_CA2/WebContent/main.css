@@ -226,6 +226,11 @@ select.input-styling {
 	color: blue;
 }
 
+.clickable-row .fa-line-chart:hover {
+	color: #05b68e;
+}
+
+
 /* AdminUpdateAddStall.jsp */
 
 .modifyname{
@@ -237,3 +242,16 @@ select.input-styling {
 .selected-row {
 	 background-color: #7FFF94;
 }
+
+/* medals */
+.fa.fa-certificate {
+	font-size: 24px;
+}
+
+.fa.fa-exclamation, .fa.fa-ban {
+	font-size: 24px;
+	color: red;
+}
+.gold {color: gold}
+.silver {color: silver}
+.bronze {color: brown}
