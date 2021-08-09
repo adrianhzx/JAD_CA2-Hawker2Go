@@ -1,0 +1,239 @@
+@charset "ISO-8859-1";
+
+/* Import Fonts */
+@import url(//fonts.googleapis.com/css2?family=Arsenal:wght@700&display=swap);
+@import url(//fonts.googleapis.com/css?family=Lato);
+
+body {
+	font-family: Lato !important;
+	margin: 0px;
+}
+
+/* Background Images */
+#bg-image-index {
+	background-image: url('images/hawkercenter.png');
+	background-position: 80% 70%;
+	background-color: #272c45;
+	height: 310px;
+}
+
+#bg-image-login {
+	background: url('images/bg_login_chicken_rice.png');
+	background-size: cover;
+	background-position: 50% 50%;
+	background-color: #272c45;
+	height: 310px;
+}
+
+/* Heading Styling */
+h1, h2, h3, h4, h5, h6 {
+	margin: 0px !important;
+}
+
+h1 { font-size: 2em !important; padding: 14px 5px !important; }
+h2 { font-size: 1.75em !important; padding: 11px 4px !important; }
+h3 { font-size: 1.26em !important; padding: 9px 3.5px !important;}
+h4 { font-size: 1em !important; padding: 7px 2px !important; }
+h5 { font-size: 0.83em !important; padding: 6px 1.5px !important;}
+h6 { font-size: 0.75em !important; padding: 5px 1px !important;}
+
+h1, h2, h3.important-heading, h4.important-heading {
+	padding: 16px 5px;
+	font-family: "Arsenal";
+	font-weight: bold !important;
+	color: #bb0959;
+}
+
+h3, h4, h5, h6 {
+	padding: 16px 5px;
+	font-family: "Arsenal";
+	color: #808080;
+}
+
+/* Section */
+.centered {
+	margin: auto;
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.width-50 {
+	width: 50%;
+}
+
+.width-75 {
+	width: 75%;
+}
+
+/* Table */
+.centered #category-table {
+	width: 100%;
+	table-layout: fixed;
+}
+
+/* Horizontal Line */
+.divider {
+	display: flex;
+	flex-direction: row;
+	padding: 10px;
+	color: gray;
+}
+
+.divider:before, .divider:after {
+	content: "";
+	flex: 1 1;
+	border-bottom: 0.5px solid black;
+	padding: 1px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+/* Category Image -- index.jsp */
+td button[name="category"] {
+	width: 100%
+}
+td .category-image {
+	width: 80%;
+	height: 200px;
+	object-fit: cover;
+	border-radius: 4px;
+	filter: contrast(75%) brightness(75%) saturate(1);
+}
+
+td .category-image:hover {
+	filter: saturate(2);
+}
+
+/* Category Title -- index.jsp */
+#category-table td {
+	position: relative;
+}
+
+.category-title {
+	position: absolute;
+	left: 53%;
+	top: 55%;
+	text-align: right;
+	z-index: 1;
+	color: white;
+}
+
+/* Form Properties */
+.input-icons i {
+	position: absolute;
+	font-size: 20px;
+}
+
+.icon {
+	padding: 8px;
+	min-width: 20px;
+}
+
+.input-styling {
+	padding: 5px 30px 5px;
+	font-family: Lato;
+	margin-right: 12px;
+}
+
+select.input-styling {
+	padding: 7.5px 30px 7.5px;
+}
+.bottom-border {
+	border: none;
+	border-bottom: 1px solid black;
+}
+
+.focused:focus {
+	background-color: #d3eaf1;
+	border: 1px solid blue;
+}
+
+/* Button Styling */
+.input-styling[type="submit"], .page-button, .page-button-update {
+	background-color: #7407f8;
+	padding: 5px 30px 5px;
+	border: none;
+	font-family: Lato;
+	font-weight: bold;
+	color: white;
+}
+
+.page-button {
+	background-color: #a42213;
+}
+
+.input-styling[type="submit"]:disabled, .page-button:disabled, .page-button-update:disabled { 
+	background-color: gray;
+}
+
+.borderless-input {
+	border: none;
+	text-align: center;
+	width: 60px;
+}
+
+/* Login Container */
+#login-container {
+	display: flex;
+	flex-direction: row;
+	margin-top: 45px;
+	margin-bottom: 45px;
+}
+
+#login-container section {
+	flex: 2;
+}
+
+.vl {
+	border-left: 1px solid gray;
+	height: 400px;
+}
+
+/* Error/Success Message */
+.error-message {
+	margin-top: 20px;
+	padding: 10px 30px;
+	border: 1px solid red;
+	border-radius: 3px;
+	background-color: #fdd0d7;
+	color: red;
+}
+
+.success-message {
+	margin-top: 20px;
+	padding: 10px 30px;
+	border: 1px solid #00c600;
+	border-radius: 3px;
+	background-color: #b7ffb7;
+	color: #00c600;
+}
+
+/* cart.jsp */
+
+/* productAdmin.jsp */
+.clickable-row:hover {
+	background-color: #cfeffe;
+	cursor: context-menu;
+}
+
+.clickable-row .fa-trash:hover {
+	color: red;
+}
+
+.clickable-row .fa-pencil:hover {
+	color: blue;
+}
+
+/* AdminUpdateAddStall.jsp */
+
+.modifyname{
+	font-family: Arsenal;
+}
+
+/* admin.jsp */
+
+.selected-row {
+	 background-color: #7FFF94;
+}

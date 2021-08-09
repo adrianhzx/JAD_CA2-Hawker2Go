@@ -1,0 +1,34 @@
+============================================ Welcome to using hawker2GO! ========================================
+
+1. Please ensure that you have the correct database. It should be "hawker2go_jad".
+
+2. Go to this path. (whereyouput)/JAD_CA1/src/config/DbConfigs.java
+
+3. Change the password that is connected to your database.
+
+4. Ensure that you are using Tomcat server.
+
+5. go to this path. (whereyouput)\eclipse-workspace\Servers\Tomcat v9.0 Server at localhost-config\web.xml
+
+6. Edit the web.xml in source. And scroll all the way down and paste this. PASTE IT BEFORE </web-app>!!!.
+
+/*
+
+<context-param> 
+   <description>Location to store uploaded file</description> 
+   <param-name>file-upload</param-name> 
+   <param-value>
+      C:\Users\Adria\git\JAD_CA1_Hawker2Go\JAD_CA1\WebContent\images\Food\
+   </param-value> 
+</context-param>
+
+*/
+
+7. If you see the param-value, please change it to the correct path. which connects to (whereyouput)JAD_CA1\WebContent\images\Food\.
+
+8. Please include a slash after Food. e.g. "\images\Food\"
+
+9. Remember that in the web.xml, the slash is "\" not this "/".
+
+10. After that save it.
+
