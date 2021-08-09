@@ -35,6 +35,9 @@
 		<%@include file="header.jsp"%>
 		<h1 class="text-center">Stall Statistics</h1>
 		<%
+			if (!userObj.isAdministrator()) {
+				response.sendRedirect("index.jsp");
+			}
 			//String multi = "SELECT * FROM orders AS o, product AS p, stall AS s WHERE s.storeID = p.StoreID AND p.StoreID = ?";
 			String base = "SELECT"
 			.concat(" ifnull(SUM(o.quantity), 0) 'Total stock',")
